@@ -10,9 +10,9 @@ const contactInput = document.getElementById("contact") as HTMLInputElement;
 const educationInput = document.getElementById("education") as HTMLInputElement;
 const experienceInput = document.getElementById("experience") as HTMLInputElement;
 const skillsInput = document.getElementById("skills") as HTMLInputElement;
+const usernameInput=document.getElementById("username") as HTMLInputElement;
 
-
-if( profilePictureInput && nameInput && emailInput &&  contactInput  &&  educationInput  &&  experienceInput && skillsInput )
+if( profilePictureInput && nameInput && emailInput &&  contactInput  &&  educationInput  &&  experienceInput && skillsInput && usernameInput)
    
    {
     
@@ -24,6 +24,8 @@ if( profilePictureInput && nameInput && emailInput &&  contactInput  &&  educati
     const skills= skillsInput.value;
     const profilePictureFile= profilePictureInput.files?.[0]
     const profilePictureURL = profilePictureFile? URL.createObjectURL(profilePictureFile):"";
+    const usernameURL = usernameInput.value;
+    const uniquePath=`resumes/${usernameURL.replace(/\s+/g, '_')}_resume.html`
 
 
     const resumeOutput =`
@@ -41,9 +43,20 @@ if( profilePictureInput && nameInput && emailInput &&  contactInput  &&  educati
 
     
     `;
+    const downloadLink= document.createElement('a')
+    downloadLink.href='data:text/html;charset=UTF-8,'+ encodeURIComponent(resumeOutput)
+    downloadLink.download= uniquePath
+    downloadLink.textContent="DOwnload your resume"
+
+
+
+
+
     const resumeOutputElement = document.getElementById("resumeOutput")
     if(resumeOutputElement){
          resumeOutputElement.innerHTML= resumeOutput
+
+         resumeOutputElement.appendChild(downloadLink)
       
       makeEditable()
         }

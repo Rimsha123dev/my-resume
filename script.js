@@ -9,7 +9,8 @@ var _a;
     var educationInput = document.getElementById("education");
     var experienceInput = document.getElementById("experience");
     var skillsInput = document.getElementById("skills");
-    if (profilePictureInput && nameInput && emailInput && contactInput && educationInput && experienceInput && skillsInput) {
+    var usernameInput = document.getElementById("username");
+    if (profilePictureInput && nameInput && emailInput && contactInput && educationInput && experienceInput && skillsInput && usernameInput) {
         var name_1 = nameInput.value;
         var email = emailInput.value;
         var contact = contactInput.value;
@@ -18,10 +19,17 @@ var _a;
         var skills = skillsInput.value;
         var profilePictureFile = (_a = profilePictureInput.files) === null || _a === void 0 ? void 0 : _a[0];
         var profilePictureURL = profilePictureFile ? URL.createObjectURL(profilePictureFile) : "";
+        var usernameURL = usernameInput.value;
+        var uniquePath = "resumes/".concat(usernameURL.replace(/\s+/g, '_'), "_resume.html");
         var resumeOutput = "\n    <h2>RESUME</h2>\n    ".concat(profilePictureURL ? " <img src=\"".concat(profilePictureURL, "\" alt=\"profile\" class=\"profilePicture\">") : "", "\n    <p><strong>Name:</strong> <span id=\"edit-name\" class=\"editable\">").concat(name_1, " </span> </p>\n     <p><strong>Email:</strong> <span id=\"edit-email\" class=\"editable\"> ").concat(email, " </span> </p>\n      <p><strong>Contact #:</strong>  <span id=\"edit-contact\" class=\"editable\"> ").concat(contact, "</span> </p>\n       <h3>Education</h3>\n       <p>  <span id=\"edit-education\" class=\"editable\"> ").concat(education, "</span> </p>\n        <h3>Experience</h3>\n        <p>  <span id=\"edit-experience\" class=\"editable\"> ").concat(experience, "</span> </p>\n         <h3>Skills</h3>\n         <p>  <span id=\"edit-skills\" class=\"editable\"> ").concat(skills, "</span> </p>\n\n    \n    ");
+        var downloadLink = document.createElement('a');
+        downloadLink.href = 'data:text/html;charset=UTF-8,' + encodeURIComponent(resumeOutput);
+        downloadLink.download = uniquePath;
+        downloadLink.textContent = "DOwnload your resume";
         var resumeOutputElement = document.getElementById("resumeOutput");
         if (resumeOutputElement) {
             resumeOutputElement.innerHTML = resumeOutput;
+            resumeOutputElement.appendChild(downloadLink);
             makeEditable();
         }
     }
